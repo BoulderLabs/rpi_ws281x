@@ -33,11 +33,11 @@ import os
 opts = Variables()
 opts.Add(BoolVariable('V',
                       'Verbose build',
-                      False))
+                      True))
 
 opts.Add('TOOLCHAIN',
          'Set toolchain for cross compilation (e.g. arm-linux-gnueabihf)',
-         '')
+         'arm-poky-linux-gnueabi')
 
 platforms = [ 
     [
@@ -46,8 +46,11 @@ platforms = [
         {                       # Special environment setup
             'CPPPATH' : [
             ],
+            'CFLAGS' : [
+                       "-march=armv7ve", "-marm", "-mfpu=neon-vfpv4", "-mfloat-abi=hard", "-mcpu=cortex-a7", "--sysroot=/opt/poky/fieldline/sysroots/cortexa7hf-neon-vfpv4-poky-linux-gnueabi"
+            ],
             'LINKFLAGS' : [
-                "-lrt",
+                "-march=armv7ve", "-marm", "-mfpu=neon-vfpv4", "-mfloat-abi=hard", "-mcpu=cortex-a7", "--sysroot=/opt/poky/fieldline/sysroots/cortexa7hf-neon-vfpv4-poky-linux-gnueabi", "-lrt",
             ],
         },
     ], 
